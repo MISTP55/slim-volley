@@ -1,4 +1,5 @@
 package com.slimvolley.slimvolley;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,13 +35,16 @@ public class SimpleSlickGame extends BasicGame
     @Override
     public void update(GameContainer container, int i) throws SlickException {
         if(container.getInput().isKeyDown(Input.KEY_A)) {
-            slim.setX(slim.getX() - 1);
+            if(slim.getX() > 0)
+                slim.setX(slim.getX() - 1);
         }
         if(container.getInput().isKeyDown(Input.KEY_S)) {
-            slim.setY(slim.getY() + 1);
+            if(slim.getY()+100 < 480)
+                slim.setY(slim.getY() + 1);
         }
         if(container.getInput().isKeyDown(Input.KEY_D)) {
-            slim.setX(slim.getX() + 1);
+            if(slim.getX()+100 < 640)
+                slim.setX(slim.getX() + 1);
         }
     }
 
@@ -48,10 +52,7 @@ public class SimpleSlickGame extends BasicGame
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
         g.drawOval(slim.getX(), slim.getY(), 100, 100);
-        g.drawString(message,100,150);
     }
-
-    private String message = "";
 
     public static void main(String[] args)
     {
@@ -66,5 +67,7 @@ public class SimpleSlickGame extends BasicGame
         {
             Logger.getLogger(SimpleSlickGame.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Observable slim = new Observable();
     }
 }
