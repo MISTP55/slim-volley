@@ -1,4 +1,5 @@
 package com.slimvolley.slimvolley.domain;
+//grosseputemolle
 
 public class Entity {
     protected int x;
