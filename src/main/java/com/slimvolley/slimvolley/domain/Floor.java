@@ -1,7 +1,7 @@
 package com.slimvolley.slimvolley.domain;
 
 import com.slimvolley.slimvolley.SlimVolleyGame;
-import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -9,20 +9,20 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Ball extends Entity
+public class Floor extends Entity
 {
-    public Ball(float x, float y, float width, float height) {
+    public Floor(float x, float y, float width, float height) {
         super(x, y, width, height);
 
         this.bodyDefinition = new BodyDef();
         this.bodyDefinition.position.set(x, -y);
-        this.bodyDefinition.type = BodyType.DYNAMIC;
+        this.bodyDefinition.type = BodyType.STATIC;
 
-        CircleShape cs = new CircleShape();
-        cs.m_radius = width / 2;
+        PolygonShape ps = new PolygonShape();
+        ps.setAsBox(width / 2, height / 2);
 
         this.fixtureDefinition = new FixtureDef();
-        this.fixtureDefinition.shape = cs;
+        this.fixtureDefinition.shape = ps;
         this.fixtureDefinition.density = 0.5f;
         this.fixtureDefinition.friction = 0.0f;
         this.fixtureDefinition.restitution = 1.0f;
@@ -36,10 +36,10 @@ public class Ball extends Entity
 
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-        g.fillOval(
-                (this.body.getPosition().x - this.fixtureDefinition.shape.m_radius) * SlimVolleyGame.PIXEL_RATE,
-                -(this.body.getPosition().y + this.fixtureDefinition.shape.m_radius) * SlimVolleyGame.PIXEL_RATE,
-                this.fixtureDefinition.shape.m_radius * 2 * SlimVolleyGame.PIXEL_RATE,
-                this.fixtureDefinition.shape.m_radius * 2 * SlimVolleyGame.PIXEL_RATE);
+        g.fillRect(
+                (this.body.getPosition().x - (this.width / 2)) * SlimVolleyGame.PIXEL_RATE,
+                -(this.body.getPosition().y + (this.height / 2)) * SlimVolleyGame.PIXEL_RATE,
+                this.width * SlimVolleyGame.PIXEL_RATE,
+                this.height * SlimVolleyGame.PIXEL_RATE);
     }
 }

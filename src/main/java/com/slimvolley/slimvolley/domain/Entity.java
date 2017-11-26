@@ -1,5 +1,6 @@
 package com.slimvolley.slimvolley.domain;
 
+import com.slimvolley.slimvolley.SlimVolleyGame;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.FixtureDef;
@@ -9,86 +10,32 @@ import org.newdawn.slick.SlickException;
 
 public abstract class Entity
 {
-    protected int x;
-    protected int y;
-    protected int width;
-    protected int height;
+    protected float width;
+    protected float height;
 
     protected Body body;
     protected BodyDef bodyDefinition;
     protected FixtureDef fixtureDefinition;
 
-    public static final int PIXEL_RATE = 1;
-
-    public Entity(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
+    public Entity(float x, float y, float width, float height) {
         this.width = width;
         this.height = height;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public float getXInMeters() {
-        return x * (1.0f / PIXEL_RATE);
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setXInMeters(float x) {
-        this.x = (int) (x * PIXEL_RATE);
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public float getYInMeters() {
-        return y * (1.0f / PIXEL_RATE);
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setYInMeters(float y) {
-        this.y = (int) (y * PIXEL_RATE);
-    }
-
-    public int getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public float getWidthInMeters() {
-        return this.width * (1.0f / PIXEL_RATE);
-    }
-
-    public void setWidth(int width) {
+    public void setWidth(float width) {
         this.width = width;
     }
 
-    public void setWidthInMeters(float width) {
-        this.width = (int) (width * PIXEL_RATE);
-    }
-
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public float getHeightInMeters() {
-        return this.height * (1.0f / PIXEL_RATE);
-    }
-
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
-    }
-
-    public void setHeightInMeters(float height) {
-        this.height = (int) (height * PIXEL_RATE);
     }
 
     public Body getBody() {
