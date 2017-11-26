@@ -1,6 +1,7 @@
 package com.slimvolley.slimvolley.domain;
 
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
@@ -16,7 +17,7 @@ public class Slim extends Entity
 
         this.bodyDefinition = new BodyDef();
         this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() - (getHeightInMeters()  / 2));
-        this.bodyDefinition.type = BodyType.STATIC;
+        this.bodyDefinition.type = BodyType.DYNAMIC;
 
         CircleShape cs = new CircleShape();
         cs.m_radius = (getWidthInMeters() / 2);
@@ -65,11 +66,13 @@ public class Slim extends Entity
         }
 
         if(isMoving()) {
-            this.x += this.direction * delta;
+            this.body.setLinearVelocity(new Vec2(40 * this.direction * delta, 0));
+        } else {
+            this.body.setLinearVelocity(new Vec2(0, 0));
         }
 
-        this.bodyDefinition.position.x = this.getXInMeters();
-        this.bodyDefinition.position.y = this.getYInMeters();
+        setXInMeters(this.getBody().getPosition().x);
+        setYInMeters(-this.getBody().getPosition().y);
     }
 
     @Override

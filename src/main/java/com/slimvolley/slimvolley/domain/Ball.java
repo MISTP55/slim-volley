@@ -24,7 +24,7 @@ public class Ball extends Entity
         this.fixtureDefinition.shape = cs;
         this.fixtureDefinition.density = 0.5f;
         this.fixtureDefinition.friction = 0.5f;
-        this.fixtureDefinition.restitution = 0.2f;
+        this.fixtureDefinition.restitution = 0.8f;
     }
 
     @Override
