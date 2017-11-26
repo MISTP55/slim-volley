@@ -1,5 +1,9 @@
 package com.slimvolley.slimvolley.domain;
 
+import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
 import org.newdawn.slick.*;
 
 public class Slim extends Entity
@@ -9,6 +13,19 @@ public class Slim extends Entity
 
     public Slim(int x, int y, int width, int height) {
         super(x, y, width, height);
+
+        this.bodyDefinition = new BodyDef();
+        this.bodyDefinition.position.set(x * 0.01f + ((width * 0.01f) / 2), -y * 0.01f + ((height * 0.01f) / 2));
+        this.bodyDefinition.type = BodyType.STATIC;
+
+        CircleShape cs = new CircleShape();
+        cs.m_radius = (this.width / 2) * 0.01f;
+
+        this.fixtureDefinition = new FixtureDef();
+        this.fixtureDefinition.shape = cs;
+        this.fixtureDefinition.density = 0.5f;
+        this.fixtureDefinition.friction = 0.5f;
+        this.fixtureDefinition.restitution = 0.5f;
     }
 
     public boolean isMoving() {
