@@ -12,9 +12,9 @@ public class SlimController implements KeyListener {
 
     @Override
     public void keyPressed(int key, char c) {
-        
         switch (key) {
             case Input.KEY_W:
+                this.slim.jump();
                 break;
             case Input.KEY_A:
                 this.slim.setMoving(true);
@@ -25,12 +25,12 @@ public class SlimController implements KeyListener {
                 this.slim.setDirection(1);
                 break;
         }
-
     }
 
     @Override
     public void keyReleased(int key, char c) {
         this.slim.setMoving(false);
+        this.slim.setDirection(0);
     }
 
     @Override

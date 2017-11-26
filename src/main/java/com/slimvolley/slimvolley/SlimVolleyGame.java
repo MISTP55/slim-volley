@@ -3,11 +3,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.slimvolley.slimvolley.domain.*;
+import org.jbox2d.collision.shapes.ChainShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.*;
 import org.newdawn.slick.*;
 
 public class SlimVolleyGame extends BasicGame
@@ -25,7 +24,6 @@ public class SlimVolleyGame extends BasicGame
 
     private Slim slim;
     private Ball ball;
-    private Floor floor;
 
     public SlimVolleyGame(String gamename) {
         super(gamename);
@@ -35,16 +33,14 @@ public class SlimVolleyGame extends BasicGame
     public void init(GameContainer container) throws SlickException {
         this.slim = new Slim(3.0f, 8.0f, 1.5f, 1.5f);
         this.ball = new Ball(3.0f, 4.0f, 0.5f, 0.5f);
-        this.floor = new Floor(8.0f, 9.0f, 17.0f, 0.5f);
 
         this.slim.init(container);
         this.ball.init(container);
-        this.floor.init(container);
 
         KeyListener slimControler = new SlimController(this.slim);
         container.getInput().addKeyListener(slimControler);
 
-        Vec2 gravity = new Vec2(0, -9.8f);
+        Vec2 gravity = new Vec2(0, -20.0f);
         this.world = new World(gravity);
 
         this.timeStep = 1.0f / 60.0f;
@@ -53,16 +49,35 @@ public class SlimVolleyGame extends BasicGame
 
         this.slim.setBody(world.createBody(slim.getBodyDefinition()));
         this.ball.setBody(world.createBody(ball.getBodyDefinition()));
-        this.floor.setBody(world.createBody(floor.getBodyDefinition()));
+
+        // Bordures
+        Vec2[] vs = new Vec2[4];
+        vs[0] = new Vec2(0, 0);
+        vs[1] = new Vec2(0, -(SlimVolleyGame.WINDOW_HEIGHT / SlimVolleyGame.PIXEL_RATE));
+        vs[2] = new Vec2(SlimVolleyGame.WINDOW_WIDTH / SlimVolleyGame.PIXEL_RATE, -(SlimVolleyGame.WINDOW_HEIGHT / SlimVolleyGame.PIXEL_RATE));
+        vs[3] = new Vec2(SlimVolleyGame.WINDOW_WIDTH / SlimVolleyGame.PIXEL_RATE, 0);
+
+        ChainShape bShape = new ChainShape();
+        bShape.createLoop(vs, 4);
+
+        FixtureDef fDef = new FixtureDef();
+        fDef.shape = bShape;
+        fDef.density = 100.f;
+
+        BodyDef bDef = new BodyDef();
+        bDef.position.set(0.0f, 0.0f);
+        bDef.type = BodyType.STATIC;
+        Body walls = world.createBody(bDef);
+        walls.createFixture(fDef);
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         container.setMinimumLogicUpdateInterval(20);
+        container.setMaximumLogicUpdateInterval(20);
 
         this.slim.update(container, delta);
         this.ball.update(container, delta);
-        this.floor.update(container, delta);
 
         this.world.step(timeStep, velocityIterations, positionIterations);
     }
@@ -71,7 +86,6 @@ public class SlimVolleyGame extends BasicGame
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         this.slim.render(container, graphics);
         this.ball.render(container, graphics);
-        this.floor.render(container, graphics);
 
         int x = SlimVolleyGame.PIXEL_RATE;
         int y = SlimVolleyGame.PIXEL_RATE;

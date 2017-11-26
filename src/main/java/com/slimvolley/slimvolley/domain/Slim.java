@@ -27,7 +27,7 @@ public class Slim extends Entity
         this.fixtureDefinition.shape = cs;
         this.fixtureDefinition.density = 1.0f;
         this.fixtureDefinition.friction = 0.0f;
-        this.fixtureDefinition.restitution = 1.0f;
+        this.fixtureDefinition.restitution = 0.0f;
     }
 
     public boolean isMoving() {
@@ -46,6 +46,10 @@ public class Slim extends Entity
         this.direction = direction;
     }
 
+    public void jump() {
+        this.body.applyLinearImpulse(new Vec2(0, 15.0f), this.body.getWorldCenter());
+    }
+
     @Override
     public void init(GameContainer container) throws SlickException {
         this.isMoving = false;
@@ -55,9 +59,9 @@ public class Slim extends Entity
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         if(isMoving()) {
-            this.body.setLinearVelocity(new Vec2(10.0f * this.direction, 0));
+            this.body.setLinearVelocity(new Vec2(12.0f * this.direction, this.body.getLinearVelocity().y));
         } else {
-            this.body.setLinearVelocity(new Vec2(0, 0));
+            this.body.setLinearVelocity(new Vec2(0, this.body.getLinearVelocity().y));
         }
     }
 
