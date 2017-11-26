@@ -14,7 +14,7 @@ public class Ball extends Entity
         super(x, y, width, height);
 
         this.bodyDefinition = new BodyDef();
-        this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() + (getHeightInMeters()  / 2));
+        this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() - (getHeightInMeters()  / 2));
         this.bodyDefinition.type = BodyType.DYNAMIC;
 
         CircleShape cs = new CircleShape();
@@ -34,8 +34,6 @@ public class Ball extends Entity
     public void update(GameContainer container, int delta) throws SlickException {
         setXInMeters(this.getBody().getPosition().x);
         setYInMeters(-this.getBody().getPosition().y);
-
-        System.out.println(this.getBody().getPosition().y);
     }
 
     @Override

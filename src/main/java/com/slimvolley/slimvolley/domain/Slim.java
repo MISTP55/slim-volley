@@ -15,7 +15,7 @@ public class Slim extends Entity
         super(x, y, width, height);
 
         this.bodyDefinition = new BodyDef();
-        this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() + (getHeightInMeters()  / 2));
+        this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() - (getHeightInMeters()  / 2));
         this.bodyDefinition.type = BodyType.STATIC;
 
         CircleShape cs = new CircleShape();
@@ -53,7 +53,7 @@ public class Slim extends Entity
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         if(this.direction == 1) {
-            if(this.x + (this.direction * delta) + this.width > 640) {
+            if(this.x + (this.direction * delta) + this.width > 1366) {
                 setMoving(false);
             }
         }
@@ -67,6 +67,9 @@ public class Slim extends Entity
         if(isMoving()) {
             this.x += this.direction * delta;
         }
+
+        this.bodyDefinition.position.x = this.getXInMeters();
+        this.bodyDefinition.position.y = this.getYInMeters();
     }
 
     @Override

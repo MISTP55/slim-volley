@@ -26,8 +26,8 @@ public class SlimVolleyGame extends BasicGame
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        this.slim = new Slim(500, 700, 100, 100);
-        this.ball = new Ball(530, 400, 40, 40);
+        this.slim = new Slim(500, 600, 100, 100);
+        this.ball = new Ball(550, 400, 40, 40);
 
         this.slim.init(container);
         this.ball.init(container);
