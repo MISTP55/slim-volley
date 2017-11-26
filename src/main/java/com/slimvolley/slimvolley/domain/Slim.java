@@ -15,11 +15,11 @@ public class Slim extends Entity
         super(x, y, width, height);
 
         this.bodyDefinition = new BodyDef();
-        this.bodyDefinition.position.set(x * 0.01f + ((width * 0.01f) / 2), -y * 0.01f + ((height * 0.01f) / 2));
+        this.bodyDefinition.position.set(getXInMeters() + (getWidthInMeters() / 2), -getYInMeters() + (getHeightInMeters()  / 2));
         this.bodyDefinition.type = BodyType.STATIC;
 
         CircleShape cs = new CircleShape();
-        cs.m_radius = (this.width / 2) * 0.01f;
+        cs.m_radius = (getWidthInMeters() / 2);
 
         this.fixtureDefinition = new FixtureDef();
         this.fixtureDefinition.shape = cs;

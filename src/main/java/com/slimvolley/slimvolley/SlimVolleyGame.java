@@ -16,9 +16,6 @@ import org.newdawn.slick.*;
 public class SlimVolleyGame extends BasicGame
 {
     private World world;
-    private float timeStep = 1.0f/60.0f;
-    private int velocityIterations = 6;
-    private int positionIterations = 2;
 
     private Slim slim;
     private Ball ball;
@@ -29,8 +26,8 @@ public class SlimVolleyGame extends BasicGame
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        this.slim = new Slim(200, 300, 100, 100);
-        this.ball = new Ball(230, 50, 40, 40);
+        this.slim = new Slim(500, 700, 100, 100);
+        this.ball = new Ball(530, 400, 40, 40);
 
         this.slim.init(container);
         this.ball.init(container);
@@ -38,7 +35,7 @@ public class SlimVolleyGame extends BasicGame
         KeyListener slimControler = new SlimController(this.slim);
         container.getInput().addKeyListener(slimControler);
 
-        Vec2 gravity = new Vec2(0, -9.8f * Entity.PIXEL_RATE);
+        Vec2 gravity = new Vec2(0, -1.0f);
         this.world = new World(gravity);
 
         slim.setBody(world.createBody(slim.getBodyDefinition()));
@@ -50,7 +47,7 @@ public class SlimVolleyGame extends BasicGame
         this.slim.update(container, i);
         this.ball.update(container, i);
 
-        float timeStep = 1.0f / 60.f;
+        float timeStep = 1.0f / 60.0f;
         int velocityIterations = 6;
         int positionIterations = 2;
 
@@ -67,7 +64,7 @@ public class SlimVolleyGame extends BasicGame
         try {
             AppGameContainer appgc;
             appgc = new AppGameContainer(new SlimVolleyGame("Slim Volley"));
-            appgc.setDisplayMode(640, 480, false);
+            appgc.setDisplayMode(1366, 768, false);
             appgc.start();
         }
         catch (SlickException ex) {

@@ -24,7 +24,7 @@ public class Ball extends Entity
         this.fixtureDefinition.shape = cs;
         this.fixtureDefinition.density = 0.5f;
         this.fixtureDefinition.friction = 0.5f;
-        this.fixtureDefinition.restitution = 1.0f;
+        this.fixtureDefinition.restitution = 0.2f;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Ball extends Entity
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         setXInMeters(this.getBody().getPosition().x);
-        setYInMeters(this.getBody().getPosition().y);
+        setYInMeters(-this.getBody().getPosition().y);
 
         System.out.println(this.getBody().getPosition().y);
     }

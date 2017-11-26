@@ -18,7 +18,7 @@ public abstract class Entity
     protected BodyDef bodyDefinition;
     protected FixtureDef fixtureDefinition;
 
-    public static final int PIXEL_RATE = 100;
+    public static final int PIXEL_RATE = 1;
 
     public Entity(int x, int y, int width, int height) {
         this.x = x;
