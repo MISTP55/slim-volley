@@ -34,7 +34,7 @@ public class SlimVolleyGame extends BasicGame
     @Override
     public void init(GameContainer container) throws SlickException {
         this.slim = new Slim(3.0f, 8.0f, 1.5f, 1.5f);
-        this.ball = new Ball(3.0f, 4.0f, 0.4f, 0.4f);
+        this.ball = new Ball(3.0f, 4.0f, 0.5f, 0.5f);
         this.floor = new Floor(8.0f, 9.0f, 17.0f, 0.5f);
 
         this.slim.init(container);
@@ -76,11 +76,14 @@ public class SlimVolleyGame extends BasicGame
         int x = SlimVolleyGame.PIXEL_RATE;
         int y = SlimVolleyGame.PIXEL_RATE;
         for(int m = 1; m < SlimVolleyGame.WINDOW_WIDTH; m++) {
-            graphics.drawString(m + "m", x, 0);
+            graphics.drawString("|" + m + "m", x, 0);
+            graphics.drawString(" " + m * PIXEL_RATE + "px", x, 20);
             x += SlimVolleyGame.PIXEL_RATE;
         }
         for(int m = 1; m < SlimVolleyGame.WINDOW_HEIGHT; m++) {
-            graphics.drawString(m + "m", 0, y);
+            graphics.drawString("¯", 0, y);
+            graphics.drawString(m + "m ", 0, y + 10);
+            graphics.drawString(m * PIXEL_RATE + "px", 0, y + 30);
             y += SlimVolleyGame.PIXEL_RATE;
         }
     }
