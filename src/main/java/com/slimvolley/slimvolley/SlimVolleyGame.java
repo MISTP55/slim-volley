@@ -89,12 +89,12 @@ public class SlimVolleyGame extends BasicGame
 
         int x = SlimVolleyGame.PIXEL_RATE;
         int y = SlimVolleyGame.PIXEL_RATE;
-        for(int m = 1; m < SlimVolleyGame.WINDOW_WIDTH; m++) {
+        for(int m = 1; m < SlimVolleyGame.WINDOW_WIDTH / PIXEL_RATE; m++) {
             graphics.drawString("|" + m + "m", x, 0);
             graphics.drawString(" " + m * PIXEL_RATE + "px", x, 20);
             x += SlimVolleyGame.PIXEL_RATE;
         }
-        for(int m = 1; m < SlimVolleyGame.WINDOW_HEIGHT; m++) {
+        for(int m = 1; m < SlimVolleyGame.WINDOW_HEIGHT / PIXEL_RATE; m++) {
             graphics.drawString("¯", 0, y);
             graphics.drawString(m + "m ", 0, y + 10);
             graphics.drawString(m * PIXEL_RATE + "px", 0, y + 30);
