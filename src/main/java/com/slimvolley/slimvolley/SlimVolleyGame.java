@@ -50,6 +50,7 @@ public class SlimVolleyGame extends BasicGame
         this.slim.setBody(world.createBody(slim.getBodyDefinition()));
         this.ball.setBody(world.createBody(ball.getBodyDefinition()));
 
+
         // Bordures
         Vec2[] vs = new Vec2[4];
         vs[0] = new Vec2(0, 0);
@@ -86,6 +87,19 @@ public class SlimVolleyGame extends BasicGame
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         this.slim.render(container, graphics);
         this.ball.render(container, graphics);
+
+        Vec2[] line = this.slim.getArcVertices(3);
+        //graphics.drawLine(0,0+150, line[0].x *100,(line[0].y*100)+150);
+        for (int i = 0; i< line.length - 1;i++){
+            graphics.drawLine(line[i].x*100,(line[i].y*100)+150,line[i+1].x*100,(line[i+1].y*100)+150);
+        }
+        //graphics.drawLine(0,0+150, line[0].x *100,(line[0].y*100)+150);
+        graphics.drawLine(line[line.length-1].x*100,(line[line.length-1].y*100)+150,line[0].x*100,(line[0].y*100)+150);
+
+        /*graphics.drawLine(line[0].x*100,(line[0].y*100)+150,line[1].x*100,(line[1].y*100)+150);
+        graphics.drawLine(line[1].x*100,(line[1].y*100)+150, 150f,0+150);*/
+
+
 
         int x = SlimVolleyGame.PIXEL_RATE;
         int y = SlimVolleyGame.PIXEL_RATE;

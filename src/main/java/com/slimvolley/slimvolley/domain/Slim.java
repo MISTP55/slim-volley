@@ -2,6 +2,7 @@ package com.slimvolley.slimvolley.domain;
 
 import com.slimvolley.slimvolley.SlimVolleyGame;
 import org.jbox2d.collision.shapes.CircleShape;
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -23,11 +24,23 @@ public class Slim extends Entity
         CircleShape cs = new CircleShape();
         cs.m_radius = width / 2;
 
+
+
+        /*PolygonShape ps = new PolygonShape();
+
+        //Sommet
+        Vec2[] vs = new Vec2[4];
+        vs[0] = new Vec2(0, 0);
+        vs[1] = new Vec2(0, -(SlimVolleyGame.WINDOW_HEIGHT / SlimVolleyGame.PIXEL_RATE));
+        vs[2] = new Vec2(SlimVolleyGame.WINDOW_WIDTH / SlimVolleyGame.PIXEL_RATE, -(SlimVolleyGame.WINDOW_HEIGHT / SlimVolleyGame.PIXEL_RATE));
+        vs[3] = new Vec2(SlimVolleyGame.WINDOW_WIDTH / SlimVolleyGame.PIXEL_RATE, 0);*/
+
         this.fixtureDefinition = new FixtureDef();
         this.fixtureDefinition.shape = cs;
         this.fixtureDefinition.density = 1.0f;
         this.fixtureDefinition.friction = 0.0f;
         this.fixtureDefinition.restitution = 0.0f;
+
     }
 
     public boolean isMoving() {
@@ -75,5 +88,19 @@ public class Slim extends Entity
                 180,
                 0);
 
+    }
+
+    public Vec2[] getArcVertices(int verticesCount){
+        Vec2[] arcVertices = new Vec2[verticesCount + 2];
+        int compteur = 1;
+        arcVertices[0] = new Vec2(0,0);
+        for (float l = (this.fixtureDefinition.shape.m_radius*2)/(verticesCount+1); l < this.fixtureDefinition.shape.m_radius*2; l += (this.fixtureDefinition.shape.m_radius*2)/(verticesCount+1)){
+            float y = (float)Math.sqrt(Math.abs((this.fixtureDefinition.shape.m_radius * this.fixtureDefinition.shape.m_radius)- (l * l)));
+            Vec2 vertice = new Vec2(l, y);
+            arcVertices[compteur] = vertice;
+            compteur++;
+        }
+        arcVertices[arcVertices.length-1] = new Vec2(this.fixtureDefinition.shape.m_radius*2,0);
+        return arcVertices;
     }
 }
