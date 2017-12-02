@@ -110,14 +110,28 @@ public class Slim extends Entity
     public Vec2[] getArcVertices(int verticesCount){
         Vec2[] arcVertices = new Vec2[verticesCount + 2];
         int compteur = 1;
-        arcVertices[0] = new Vec2(0,0);
+
+        //On trouve la distance degrée entre chaque point
+        double distanceDegree = 180 / (verticesCount+1);
+        double compteurDegree = 0;
+        for (int i = 0; i < arcVertices.length; i++){
+            float x = this.fixtureDefinition.shape.m_radius*(float)Math.cos(compteurDegree);
+            float y = this.fixtureDefinition.shape.m_radius*(float)Math.sin(compteurDegree);
+            Vec2 vertice = new Vec2(x,y);
+            arcVertices[i] = vertice;
+            compteurDegree += distanceDegree;
+        }
+
+
+
+        /*arcVertices[0] = new Vec2(0,0);
         for (float l = (this.fixtureDefinition.shape.m_radius*2)/(verticesCount+1); l < this.fixtureDefinition.shape.m_radius*2; l += (this.fixtureDefinition.shape.m_radius*2)/(verticesCount+1)){
             float y = (float)Math.sqrt(Math.abs((this.fixtureDefinition.shape.m_radius * this.fixtureDefinition.shape.m_radius)- (l * l)));
             Vec2 vertice = new Vec2(l, y);
             arcVertices[compteur] = vertice;
             compteur++;
         }
-        arcVertices[arcVertices.length-1] = new Vec2(this.fixtureDefinition.shape.m_radius*2,0);
+        arcVertices[arcVertices.length-1] = new Vec2(this.fixtureDefinition.shape.m_radius*2,0);*/
         return arcVertices;
     }
 }
