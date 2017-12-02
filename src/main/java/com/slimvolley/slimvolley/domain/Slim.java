@@ -71,6 +71,23 @@ public class Slim extends Entity
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
+        Input input = container.getInput();
+
+        if(input.isKeyPressed(Input.KEY_W)) {
+            this.jump();
+        }
+
+        if(input.isKeyDown(Input.KEY_A)) {
+            this.setMoving(true);
+            this.setDirection(-1);
+        } else if(input.isKeyDown(Input.KEY_D)) {
+            this.setMoving(true);
+            this.setDirection(1);
+        } else {
+            this.setMoving(false);
+            this.setDirection(0);
+        }
+
         if(isMoving()) {
             this.body.setLinearVelocity(new Vec2(12.0f * this.direction, this.body.getLinearVelocity().y));
         } else {

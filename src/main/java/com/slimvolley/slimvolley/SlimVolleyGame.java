@@ -37,9 +37,6 @@ public class SlimVolleyGame extends BasicGame
         this.slim.init(container);
         this.ball.init(container);
 
-        KeyListener slimControler = new SlimController(this.slim);
-        container.getInput().addKeyListener(slimControler);
-
         Vec2 gravity = new Vec2(0, -20.0f);
         this.world = new World(gravity);
 

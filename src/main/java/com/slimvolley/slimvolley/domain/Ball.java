@@ -5,6 +5,7 @@ import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -25,7 +26,7 @@ public class Ball extends Entity
         this.fixtureDefinition.shape = cs;
         this.fixtureDefinition.density = 1.0f;
         this.fixtureDefinition.friction = 0.0f;
-        this.fixtureDefinition.restitution = 1.0f;
+        this.fixtureDefinition.restitution = 0.75f;
     }
 
     @Override
